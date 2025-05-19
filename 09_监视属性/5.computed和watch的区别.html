@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    姓：<input type="text" v-model="firstName"><br>
+    名：<input type="text" v-model="lastName"><br>
+
+    全名：<span>{{fullName}}</span><br>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            firstName: 'zhang',
+            lastName: 'san',
+            fullName: 'zhang-san',
+        },
+        computed: {
+            // fullName() {
+            //     return this.firstName + ' ' + this.lastName;
+            // }
+        },
+        /**
+         * computed能完成的功能，watch都能完成
+         * 但watch能完成的功能computed不一定能完成，比如watch实现数据的延时操作
+         *
+         */
+        watch: {
+            // 被vue管理的函数，最好写成普通函数，这样this指向的是vm实例对象
+            // 不被vue管理的函数（定时器回调，ajax的回调），最好写成箭头函数，这样往外找会指向vm实例对象
+            firstName(newVal, oldVal) {
+                //  => 上一层是firstName函数，this指向vm·
+                setTimeout(() => {
+                    this.fullName = newVal + "-" + this.lastName
+                }, 1000)
+            },
+            lastName(newVal, oldVal) {
+                this.fullName = this.firstName + "-" + newVal
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

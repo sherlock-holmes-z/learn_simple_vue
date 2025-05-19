@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        .demo1 {
+            height: 50px;
+            background-color: aqua;
+        }
+
+        .demo2 {
+            height: 50px;
+            background-color: yellow;
+        }
+
+        .demo3 {
+            height: 50px;
+            background-color: red;
+        }
+
+        .demo4 {
+            width: 100px;
+            height: 200px;
+            background-color: darkseagreen;
+            /* 元素内数据溢出时增加下拉框*/
+            overflow: auto;
+        }
+
+        li {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <!--  prevent 阻止默认事件-->
+    <a href="http://www.baidu.com" target="_blank" @click.prevent="showInfo1">点击后不会跳转</a>
+
+    <!--  stop 阻止冒泡-->
+    <div class="demo1" @click="showInfo2">
+        <!--        先阻止冒泡，再阻止默认事件，修饰符可以连续写-->
+        <button @click.stop.prevent="showInfo2">点击弹窗,外部的div不会弹</button>
+    </div>
+
+    <!--  once 事件只触发一次-->
+    <button @click.once="showInfo2">点击弹窗,只弹一次</button>
+
+    <!--  capture 使用事件的捕获模式（正常是冒泡模式，先执行内部事件，再执行外部事件）-->
+    <div class="demo2" @click.capture="showInfo3(1)">
+        <button @click="showInfo3(2)">点击console,先执行外面div的事件，再执行按钮事件</button>
+    </div>
+
+    <!--  self 只有event.target是当前元素时才会触发事件（也可以阻止冒泡，但需要外层所有元素都加上selfish）-->
+    <div class="demo3" @click.self="showInfo3(1)">
+        <button @click="showInfo3(2)">点击console,</button>
+    </div>
+
+    <!--   passive 事件默认行为立即执行，无需等待事件回调执行完毕
+        (页面滚动条立即向下滚动，不会等待方法执行结束后再加载后续页面)-->
+    <ul class="demo4" @wheel.passive="showList">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <!--    scroll：滚到底部不会再触发事件，wheel:滚到底部只要有滚轮动作还可以继续触发事件-->
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            name: 'zhangsan'
+        },
+        methods: {
+            showInfo1() {
+                alert(this.name)
+            },
+            showInfo2() {
+                alert(this.name)
+            },
+            showInfo3(num) {
+                console.log(num)
+            },
+            showList() {
+                for (let i = 0; i < 1000; i++) {
+                    console.log("@")
+                }
+            }
+
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+</body>
+</html>

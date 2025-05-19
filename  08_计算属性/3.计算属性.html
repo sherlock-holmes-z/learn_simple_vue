@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    姓：<input type="text" v-model="firstName"><br>
+    名：<input type="text" v-model="lastName"><br>
+
+    <!--    多个引用，只调用一次，内部有缓存机制-->
+    全名：<input type="text" v-model="fullName"><br>
+    全名：<span>{{fullName}}</span><br>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            firstName: 'zhang',
+            lastName: 'san',
+        },
+        computed: {
+            // 当有人读取fullName时调用get,底层使用Object.defineProperty()
+            // 什么时候被调用：1初次读取fullName时，2fullName依赖的vm属性发生变化时·
+            fullName: {
+                get() {
+                    console.log("调用")
+                    return this.firstName + '-' + this.lastName;
+                },
+                set(value) {
+                    this.firstName = value.split('-')[0];
+                    this.lastName = value.split('-')[1];
+                }
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据绑定</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app" class="app">
+    单向：<input type="text" v-bind:value="name"><br>
+    双向：<input type="text" v-model:value="name"><br>
+
+
+  简写单向：<input type="text" :value="name"><br>
+  简写双向：<input type="text" v-model="name"><br>
+
+<!-- 双向绑定只能用在表单类元素上（可输入元素），如input，select等 -->
+<!--    <h1 v-model="name"></h1>-->
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    new Vue({
+        el: '#app',
+        data: {
+            name: 'zhangsan'
+        }
+    })
+</script>
+
+</body>
+</html>

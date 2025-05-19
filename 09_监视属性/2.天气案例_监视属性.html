@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h1>今天天气{{info}}</h1>
+    <button @click="change">切换</button>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            isHot: true
+        },
+        methods: {
+            change() {
+                this.isHot = !this.isHot
+            }
+        },
+        computed: {
+            info() {
+                return this.isHot ? '热' : '冷'
+            }
+        },
+        // watch: {
+        //     isHot: {
+        //         immediate: true,
+        //         handler(newVal, oldVal) {
+        //             console.log('isHot:', newVal, oldVal)
+        //         }
+        //     }
+        // }
+    })
+    vm.$mount('#app')
+
+
+    vm.$watch('isHot', {
+        immediate: true, //初始时调用一下handler
+        handler(newVal, oldVal) {
+            console.log('当监视属性isHot变化时调用handler:', newVal, oldVal)
+        }
+    })
+</script>
+
+</body>
+</html>

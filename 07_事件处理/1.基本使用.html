@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本使用</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h2>{{name}}</h2>
+    <button v-on:click="showInfo1">点击提示信息1</button>
+    <button @click="showInfo2">点击提示信息2</button>
+    <button @click="showInfo3($event,'lisi')">点击提示信息2</button>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            name: 'zhangsan'
+        },
+        methods: {
+            showInfo1() {
+                console.log(this) // this指向vm对象 或 组件实例对象
+                alert(this.name)
+            },
+            showInfo2(event) { // 不传参方法默认接受event
+                console.log(event)
+                console.log(event.target.innerText)
+            },
+            showInfo3(event, param) { // 传参时要获取event需要在参数中指定
+                console.log(event)
+                console.log(param)
+            },
+
+        }
+
+    })
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

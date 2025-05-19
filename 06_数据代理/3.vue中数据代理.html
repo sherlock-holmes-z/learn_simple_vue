@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app" class="app">
+    <h2>{{name}}</h2>
+    <h2>{{_data.name}}</h2>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    // vue实例代理了data中的所有数据,data在vm中的属性名为_data
+    //  （重新封装_data是为了实现响应式，M修改，V也改变）
+    // 没有数据代理就只能通过_data.name
+    const vm = new Vue({
+        data() {
+            return {
+                name: 'zhangsan',
+            }
+        }
+    })
+    vm.$mount('#app')
+
+</script>
+
+</body>
+</html>

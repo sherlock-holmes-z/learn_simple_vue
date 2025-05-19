@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!--    字符串写法，动态指定一个样式-->
+    <div class="basic" :class="style" @click="changeColor">
+        样式一
+    </div>
+    <br>
+
+    <!--    数组写法，动态指定多个样式，样式名不确定，个数不确定-->
+    <div class="basic" :class="styleArray">
+        样式二
+    </div>
+    <br>
+
+    <!--    对象写法，动态指定多个样式，样式名确定，动态决定用不用-->
+    <div class="basic" :class="styleObj">
+        样式三
+    </div>
+    <br>
+
+
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            name: 'zhangsan',
+            style: 'happy',
+            styleArray: ['happy', 'sad', 'normal'],
+            styleObj: {
+                happy: true // false时不用该样式
+            }
+        },
+        methods: {
+            changeColor() {
+                const colors = ['happy', 'sad', 'normal']
+                const index = Math.floor(Math.random() * colors.length)
+                this.style = colors[index]
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+
+<style>
+    .basic {
+        color: blue;
+        border: 4px solid red;
+    }
+
+    .happy {
+        background: gold;
+    }
+
+    .sad {
+        background: green;
+    }
+
+    .normal {
+        background: red;
+        font-size: 50px;
+    }
+</style>
+</html>

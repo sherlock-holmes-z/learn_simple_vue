@@ -1,0 +1,62 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!--
+        vue常用别名：一般够用，不用额外创建键盘按键
+        回车enter,
+        删除delete
+        退出exit
+        空格space
+        换行tab(特殊，必须配合keydown使用，因为该按键在up时会转移光标，无法触发keyup)
+         上up
+         下down
+         左left
+         右right
+
+系统按键：ctrl，shift,atl,meta
+    配合keyup，按下修饰键同时，再按下其他按键，随后释放其他按键，事件才会触发
+    配合keydown，正常触发
+    -->
+
+    <input type="text" placeholder="按回车提示输入" @keyup.enter="showInfo1">
+    <input type="text" placeholder="按tab提示输入" @keydown.tab="showInfo2">
+    <input type="text" placeholder="按键提示输入" @keydown="showInfo3">
+    <input type="text" placeholder="按ctrl+y提示输入" @keydown.ctrl.y="showInfo4">
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            name: 'zhangsan'
+        },
+        methods: {
+            showInfo1(e) {
+                // e.target.value是元素中的值
+                console.log("keyup" + e.target.value)
+            },
+            showInfo2(e) {
+                // e.target.value是元素中的值
+                console.log("keyDown" + e.target.value)
+            },
+            showInfo3(e) {
+                // 获取按键的key和code,使用多个单词key的时候要转化，比如CapsLock => caps-lock
+                console.log(e.key, e.keyCode)
+            },
+            showInfo4(e) {
+                console.log("showInfo4:" + e.target.value)
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

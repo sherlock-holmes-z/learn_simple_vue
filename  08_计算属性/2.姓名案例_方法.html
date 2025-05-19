@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    姓：<input type="text" v-model="firstName"><br>
+    名：<input type="text" v-model="lastName"><br>
+
+    <!--    多个引用，调用多次，没有缓存-->
+    全名：<span>{{fullName()}}</span><br>
+    全名：<span>{{fullName()}}</span><br>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            firstName: 'zhang',
+            lastName: 'san',
+        },
+        methods: {
+            fullName() {
+                console.log(`调用fullName方法`)
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

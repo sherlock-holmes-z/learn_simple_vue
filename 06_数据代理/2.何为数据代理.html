@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="application/javascript">
+    let obj1 = {x: 1}
+    let obj2 = {y: 2}
+
+    // 通过obj2去获取和设置obj1中的属性
+    Object.defineProperty(obj2, 'x', {
+        get() {
+            return obj1.x
+        },
+        set(val) {
+            obj1.x = val
+        }
+    })
+</script>
+</body>
+</html>

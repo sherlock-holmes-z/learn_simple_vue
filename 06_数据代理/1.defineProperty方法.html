@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回顾Object.defineProperty()方法</title>
+</head>
+<body>
+<script type="text/javascript">
+    let num = 18
+    let person = {
+        name: 'zhangsan',
+    }
+
+    // 给person增加一个age属性，获取属性时会调用get.set方法，与属性外的其他值形成双向绑定
+    Object.defineProperty(person, 'age', {
+        get() {
+            console.log('获取age')
+            return num
+        },
+
+        set(value) {
+            console.log('插入age')
+            num = value
+        }
+    })
+
+    console.log(person)
+
+</script>
+
+</body>
+</html>

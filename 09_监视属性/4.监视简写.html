@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h1>今天天气{{info}}</h1>
+    <button @click="change">切换</button>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            isHot: true,
+            num: 1
+        },
+        methods: {
+            change() {
+                this.isHot = !this.isHot
+                this.num++
+            }
+        },
+        computed: {
+            info() {
+                return this.isHot ? '热' : '冷'
+            }
+        },
+        watch: {
+            // isHot: {
+            //     deep: true,
+            //     immediate: true,
+            //     handler(newVal, oldVal) {
+            //         console.log('当监视属性isHot变化时调用handler:', newVal, oldVal)
+            //     }
+            // },
+
+            // 简写方式，只有handler不需要其他配置时可以额简写
+            isHot(newVal, oldVal) {
+                console.log('当监视属性isHot变化时调用handler:', newVal, oldVal)
+            }
+        }
+    })
+
+    // vm.$watch('num', {
+    //     deep: true,
+    //     immediate: true,
+    //     handler(newVal, oldVal) {
+    //         console.log('num常规写法:', newVal, oldVal)
+    //     }
+    // })
+
+    vm.$watch('num', function (newVal, oldVal) {
+        console.log('num简写:', newVal)
+    })
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

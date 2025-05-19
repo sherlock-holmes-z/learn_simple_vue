@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app" class="app">
+    <h2>{{name}}，{{Date.now()}}，{{1 + 1}}</h2>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        // el: '#app',
+        // data: {
+        //   name: 'zhangsan'
+        // }
+
+        // 函数式写法
+        data() {
+            return {
+                name: 'zhangsan',
+            }
+        }
+    })
+
+    vm.$mount('#app')// 指定el的值，绑定容器
+</script>
+
+</body>
+</html>
