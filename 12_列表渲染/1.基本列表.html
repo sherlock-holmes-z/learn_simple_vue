@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <!--        每个元素要有自己独特的key作为唯一标识存在于虚拟dom中
+        如果使用index作为key,index只和数据顺序有关，一点数据顺序变了，就会错乱
+        不写key默认就是index-->
+        <li v-for="p in persons" :key="p.id">
+            {{p.id}}-{{p.name}}
+        </li>
+    </ul>
+
+    <ul>
+        <!--        遍历对象-->
+        <li v-for="(v,k) in obj" :key="k">
+            {{k}}---{{v}}
+        </li>
+    </ul>
+
+    <ul>
+        <!--        遍历字符串-->
+        <li v-for="(s,index) in str" :key="index">
+            {{s}}---{{index}}
+        </li>
+    </ul>
+
+    <ul>
+        <!--        遍历指定次数-->
+        <li v-for="(num,index) in 5" :key="index">
+            {{num}}---{{index}}
+        </li>
+    </ul>
+
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            persons: [
+                {id: 1, name: "zhangsan"},
+                {id: 2, name: "lisi"},
+                {id: 3, name: "wangwu"}
+            ],
+            obj: {
+                name: "zhaoliu",
+                age: 10,
+                state: "live"
+            },
+            str: "hello"
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

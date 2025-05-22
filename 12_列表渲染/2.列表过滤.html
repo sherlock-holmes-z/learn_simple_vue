@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" placeholder="请输入名字" v-model="keyword">
+    <ul>
+        <li v-for="p in filterP" :key="p.id">
+            {{p.id}}-{{p.name}}
+        </li>
+    </ul>
+
+
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    // 用watch实现
+    const vm = new Vue({
+        data: {
+            persons: [
+                {id: 1, name: "zhangsan"},
+                {id: 2, name: "lisi"},
+                {id: 3, name: "wangwu"}
+            ],
+            keyword: "",
+            filterP: []
+        },
+        watch: {
+            keyword: {
+                // 初始化时调用
+                immediate: true,
+                handler(newVal, oldVal) {
+                    this.filterP = this.persons.filter(p => p.name.indexOf(newVal) > -1)
+                }
+            }
+        }
+    })
+
+    // 用compute实现
+    // const vm = new Vue({
+    //     data: {
+    //         persons: [
+    //             {id: 1, name: "zhangsan"},
+    //             {id: 2, name: "lisi"},
+    //             {id: 3, name: "wangwu"}
+    //         ],
+    //         keyword: ""
+    //     },
+    //     computed: {
+    //         filterP() {
+    //             return this.persons.filter(p => p.name.includes(this.keyword));
+    //         }
+    //     }
+    // })
+
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>
