@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" placeholder="请输入名字" v-model="keyword">
+    <ul>
+        <li v-for="p in filterP" :key="p.id">
+            {{p.id}}-{{p.name}}-{{p.age}}
+        </li>
+    </ul>
+    <button @click="sortType = 0">原序</button>
+    <button @click="sortType = 1">降序</button>
+    <button @click="sortType = 2">升序</button>
+
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    // 用compute实现
+    const vm = new Vue({
+        data: {
+            persons: [
+                {id: 1, name: "zhangsan", age: 19},
+                {id: 2, name: "lisi", age: 30},
+                {id: 3, name: "wangwu", age: 11},
+                {id: 4, name: "tianqi", age: 22}
+            ],
+            keyword: "",
+            sortType: 0 // 为0时原序，为1时正序，2时倒序
+        },
+        computed: {
+            filterP() {
+                const arr = this.persons.filter(p => p.name.includes(this.keyword));
+                // 为0表示false
+                if (this.sortType) {
+                    arr.sort((a, b) => {
+                        return this.sortType === 1 ? b.age - a.age : a.age - b.age
+                    })
+                }
+                return arr;
+            }
+        }
+    })
+
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>
