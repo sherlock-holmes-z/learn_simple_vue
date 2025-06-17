@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <!--   @submit.prevent表单提交不跳转 -->
+    <form @submit.prevent="handleSubmit">
+
+        <!--        点击账号可以使input框获取焦点,v-model.trim去前后空格-->
+        <label for="name">账号：</label>
+        <input type="text" v-model.trim="account" id="name"><br>
+        密码：
+        <input type="password" v-model="pwd"><br>
+
+        <!--        type=number控制输入只能是数字，v-model.number控制值为数字，而不是数字字符串-->
+        年龄：
+        <input type="number" v-model.number="age"><br>
+
+
+        性别：
+        <input type="radio" name="sex" value="1" v-model="sex">男
+        <input type="radio" name="sex" value="0" v-model="sex">女
+        <br><br>
+
+        <!--        多选框hobby的初始值要使用空数组接收-->
+        爱好：
+        <input type="checkbox" value="cy" v-model="hobby">抽烟
+        <input type="checkbox" value="hj" v-model="hobby">喝酒
+        <input type="checkbox" value="tt" v-model="hobby">烫头
+        <br><br>
+
+        所属地区：
+        <select v-model="city">
+            <option>请选择地区</option>
+            <option value="beijing">北京</option>
+            <option value="shanghai">上海</option>
+            <option value="guangzhou">广州</option>
+        </select>
+        <br><br>
+
+        <!--     v-model.lazy失去焦点时再响应数据，适合textarea要输入很多数据，不需要即时保存响应，输入结束后再响应即可   -->
+        其他内容：
+        <textarea v-model.lazy="message" rows="4" cols="50">请输入</textarea><br>
+        <input type="checkbox" v-model="agree">阅读并接受
+        <br><br>
+        <button>点击提交</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            account: '',
+            pwd: '',
+            age: 1,
+            sex: '',
+            hobby: [],
+            city: 'beijing',
+            agree: false,
+            message: ''
+        },
+        methods: {
+            handleSubmit(e) {
+                console.log(JSON.stringify(this._data))
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>

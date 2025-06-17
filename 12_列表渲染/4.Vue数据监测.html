@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <button @click="student.age++ ">年龄加1</button>
+    <br>
+    <button @click="addSex">添加性别</button>
+    <br>
+    <button @click="addFF">首位添加朋友</button>
+    <br>
+    <button @click="addFL">末尾添加朋友</button>
+    <br>
+    <button @click="student.friends[0].age++">第一个朋友年龄+1</button>
+    <br>
+    <button @click="addHobby">添加爱好</button>
+    <br>
+    <button @click="updateHobby">更新爱好</button>
+    <br>
+    <button @click="deleteHJ">去掉喝酒</button>
+    <br>
+
+    <h3>{{student.name}}</h3>
+    <h3>{{student.age}}</h3>
+    <h3 v-if="student.sex">{{student.sex}}</h3>
+    <ul>
+        <li v-for="(h,index) in student.hobby" :key="index">
+            {{h}}
+    </ul>
+    <br>
+    <ul>
+        <li v-for="(item,index) in student.friends" :key="index">
+            {{item.name}}--{{item.age}}
+    </ul>
+
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        data: {
+            student: {
+                id: 1,
+                name: "zhangsan",
+                age: 10,
+                hobby: ['抽烟'],
+                friends: [
+                    {name: "x", age: 10},
+                    {name: "y", age: 11}
+                ]
+            }
+        },
+        methods: {
+            addSex() {
+                // Vue.set(this.student, "sex", "nan");
+                this.$set(this.student, "sex", "nan");
+            },
+            addFF() {
+                this.student.friends.unshift({name: "a", age: 20})
+            },
+            addFL() {
+                this.student.friends.push({name: "b", age: 1})
+            },
+            addHobby() {
+                this.student.hobby.unshift("喝酒")
+            },
+            updateHobby() {
+                const newHobby = this.student.hobby[0] + "x";
+                // this.student.hobby.splice(0, 1, newHobby)
+                // Vue.set(this.student.hobby, 0, newHobby);
+                this.$set(this.student.hobby, 0, newHobby);
+            },
+            deleteHJ() {
+                this.student.hobby = this.student.hobby.filter((h) => {
+                    return h.indexOf("喝酒") === -1
+                })
+            }
+        }
+    })
+
+    vm.$mount('#app')
+</script>
+
+</body>
+</html>
